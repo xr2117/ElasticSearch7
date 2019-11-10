@@ -6,7 +6,7 @@
 - QQ：200538725
 - 微信：Xri2117
 - Github：[SpringCloud入门教程](https://github.com/xr2117/xri-smart)
-- Github：[ElasticSerach入门教程](https://github.com/xr2117/ElasticSearch7)
+- Github：[ElasticSearch入门教程](https://github.com/xr2117/ElasticSearch7)
 - CSDN：https://blog.csdn.net/weixin_38880770/article/details/103002456
 - 若小伙伴们喜欢教程的麻烦给点个star 非常感谢，有什么需要的教程可以联系我，有时间我会一一送上
 - 作者有Java技术群，想加入Java群的可以加微信，备注消息Java拉入群聊
