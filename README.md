@@ -6786,6 +6786,65 @@ public enum ResultEnum {
 
 ##### 8.2.4 通过姓名字母查找球员
 
+- controller层
+
+```java
+    /**
+     * 通过姓名字母查找球员
+     */
+    @GetMapping("/searchPrefix")
+    public Result searchPrefix(@RequestParam(value = "prefix", required = false, defaultValue = "A") String prefix,
+                               @RequestParam(value = "page", required = false, defaultValue = "0") Integer page,
+
+                               @RequestParam(value = "limit", required = false, defaultValue = "10") Integer limit) {
+        List<NbaPlayer> nbaPlayers = null;
+        try {
+            nbaPlayers = nbaPlayerService.searchPrefix(prefix, page, limit);
+        } catch (IOException e) {
+            log.error("searchPrefix失败,参数[prefix={}]]", prefix);
+            e.printStackTrace();
+        }
+        return CollectionUtils.isNotEmpty(nbaPlayers) ? Result.success(nbaPlayers) : Result.success();
+    }
+```   
+
+- service层
+
+```java
+    /**
+     * 通过姓名字母查找球员
+     */
+    @Override
+    public List<NbaPlayer> searchPrefix(String prefix, Integer page, Integer limit) throws IOException {
+        // 获取 SearchRequest
+        SearchRequest searchRequest = new SearchRequest(NBA_INDEX);
+        // 创建 SearchSourceBuilder 用于查询语句
+        SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
+        searchSourceBuilder
+                // 查询 通过prefix查询 displayNameEn.keyword 名字字段 prefix 前缀字母
+                .query(QueryBuilders.prefixQuery("displayNameEn.keyword", prefix))
+                // 起始页
+                .from(page)
+                // 显示条数
+                .size(limit);
+        // 设置 请求源 理解为设置查询语句
+        searchRequest.source(searchSourceBuilder);
+        // 获取 SearchResponse 查询数据
+        SearchResponse searchResponse = restHighLevelClient.search(searchRequest, RequestOptions.DEFAULT);
+        // 获取碰撞之后的结果 (固定写法)
+        SearchHit[] hits = searchResponse.getHits().getHits();
+        // 进行对象转换并返回
+        return Stream.of(hits)
+                .map(e -> JSON.parseObject(e.getSourceAsString(), NbaPlayer.class))
+                .collect(Collectors.toList());
+    }
+```
+
+### 九、 走入高可用分布式集群
+
+
+### 十、 深入挖掘ElasticSearch原理
+
 ------------------
 ####  
 
