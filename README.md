@@ -1814,7 +1814,7 @@ localhost:9200/nba/_search
 
 #### <a name="60">6.1 批量导入数据</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
 
-- Bulkl
+- Bulk
 1. ES提供了Bulk的API 来进行批量操作
 
 - 数据结构类型，以换行区分
