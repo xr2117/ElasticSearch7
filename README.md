@@ -1,4 +1,4 @@
-## <a name="0">ElasticSerach 7 教程</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
+## <a name="0">ElasticSerach 7 教程</a>
 
 - 作者：Crazy.X
 - QQ：200538725
