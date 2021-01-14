@@ -1,6 +1,134 @@
-[TOC]
-
-## ElasticSerach 7 教程
+<a name="index">**Index**</a>
+&emsp;<a href="#0">ElasticSerach 7 教程</a>  
+&emsp;&emsp;<a href="#1">一、 ElasticSerach 认识</a>  
+&emsp;&emsp;&emsp;<a href="#2">1.1 索引 index</a>  
+&emsp;&emsp;&emsp;<a href="#3">1.2 类型 type</a>  
+&emsp;&emsp;&emsp;<a href="#4">1.3 映射 mapping</a>  
+&emsp;&emsp;&emsp;<a href="#5">1.4 文档 document</a>  
+&emsp;&emsp;&emsp;<a href="#6">1.5 字段 field</a>  
+&emsp;&emsp;&emsp;<a href="#7">1.6 集群 cluster</a>  
+&emsp;&emsp;&emsp;<a href="#8">1.7 节点 node</a>  
+&emsp;&emsp;&emsp;<a href="#9">1.8 分片和副本 node</a>  
+&emsp;&emsp;&emsp;<a href="#10">1.9 核心数据类型</a>  
+&emsp;&emsp;&emsp;&emsp;<a href="#11">1.9.1 字符串: </a>  
+&emsp;&emsp;&emsp;&emsp;<a href="#12">1.9.2 数值型</a>  
+&emsp;&emsp;&emsp;&emsp;<a href="#13">1.9.3 数值型 boolean</a>  
+&emsp;&emsp;&emsp;&emsp;<a href="#14">1.9.3 二进制</a>  
+&emsp;&emsp;&emsp;&emsp;<a href="#15">1.9.4 范围类型</a>  
+&emsp;&emsp;&emsp;&emsp;<a href="#16">1.9.5 日期</a>  
+&emsp;&emsp;<a href="#17">二、索引基本操作</a>  
+&emsp;&emsp;&emsp;<a href="#18">2.1 创建索引 PUT请求</a>  
+&emsp;&emsp;&emsp;<a href="#19">2.2 查看索引 GET请求</a>  
+&emsp;&emsp;&emsp;<a href="#20">2.4 删除索引 DELETE请求</a>  
+&emsp;&emsp;&emsp;<a href="#21">2.5 批量获取索引 GET请求</a>  
+&emsp;&emsp;&emsp;<a href="#22">2.6 获取全部索引 GET请求</a>  
+&emsp;&emsp;&emsp;<a href="#23">2.7 使用_cat获取全部索引 GET请求</a>  
+&emsp;&emsp;&emsp;<a href="#24">2.8 判断索引是否存在 HEAD请求</a>  
+&emsp;&emsp;&emsp;<a href="#25">2.9 关闭索引 不删除 POST请求</a>  
+&emsp;&emsp;&emsp;<a href="#26">2.10 打开索引 POST请求</a>  
+&emsp;&emsp;<a href="#27">三、映射的介绍与使用</a>  
+&emsp;&emsp;&emsp;<a href="#28">3.1 创建Mapping PUT请求</a>  
+&emsp;&emsp;&emsp;<a href="#29">3.2 查看Mapping信息 GET请求</a>  
+&emsp;&emsp;&emsp;<a href="#30">3.3 批量获取Mapping信息 GET请求</a>  
+&emsp;&emsp;&emsp;<a href="#31">3.4 获取所有Mapping信息第一种方式 GET请求</a>  
+&emsp;&emsp;&emsp;<a href="#32">3.5 获取所有Mapping信息第二种方式 GET请求</a>  
+&emsp;&emsp;&emsp;<a href="#33">3.6 增加Mapping字段 POST请求</a>  
+&emsp;&emsp;<a href="#34">四、文档的增删改查</a>  
+&emsp;&emsp;&emsp;<a href="#35">4.1 新增文档 指定ID PUT/POST请求</a>  
+&emsp;&emsp;&emsp;<a href="#36">4.2 新增文档 自动生成ID POST请求</a>  
+&emsp;&emsp;&emsp;<a href="#37">4.3 自动创建索引 POST请求</a>  
+&emsp;&emsp;&emsp;<a href="#38">4.4 查看自动创建的索引 GET请求</a>  
+&emsp;&emsp;&emsp;<a href="#39">4.5 指定操作类型</a>  
+&emsp;&emsp;&emsp;<a href="#40">4.6 查看指定ID文档 GET请求</a>  
+&emsp;&emsp;&emsp;<a href="#41">4.7 查看多条文档 第一种方式 GET/POST请求</a>  
+&emsp;&emsp;&emsp;<a href="#42">4.8 查看多条文档 第二种方式 GET/POST请求</a>  
+&emsp;&emsp;&emsp;<a href="#43">4.9 查看多条文档 第三种方式 GET/POST请求</a>  
+&emsp;&emsp;&emsp;<a href="#44">4.10 查看多条文档 第四种方式 GET/POST请求</a>  
+&emsp;&emsp;&emsp;<a href="#45">4.11 修改文档 POST请求</a>  
+&emsp;&emsp;&emsp;<a href="#46">4.12 向_source增加字段 POST请求</a>  
+&emsp;&emsp;&emsp;<a href="#47">4.13 向_source删除字段 POST请求</a>  
+&emsp;&emsp;&emsp;<a href="#48">4.14 更新指定文档的字段 POST请求</a>  
+&emsp;&emsp;&emsp;<a href="#49">4.15 upsert介绍 </a>  
+&emsp;&emsp;&emsp;<a href="#50">4.16 删除文档 DELETE请求</a>  
+&emsp;&emsp;<a href="#51">五、文档的搜索</a>  
+&emsp;&emsp;&emsp;<a href="#52">5.1 单条trem查询 GET/POST请求</a>  
+&emsp;&emsp;&emsp;<a href="#53">5.2 多条trem查询 GET/POST请求</a>  
+&emsp;&emsp;&emsp;<a href="#54"> 5.2 match_all查询 GET/POST请求</a>  
+&emsp;&emsp;&emsp;<a href="#55"> 5.3 match查询 GET/POST请求</a>  
+&emsp;&emsp;&emsp;<a href="#56"> 5.4 multi_match 多个查询 GET/POST请求</a>  
+&emsp;&emsp;&emsp;<a href="#57"> 5.4 match_phrase 多个查询 GET/POST请求</a>  
+&emsp;&emsp;&emsp;<a href="#58"> 5.5 match_phrase_profix 多个查询 GET/POST请求</a>  
+&emsp;&emsp;<a href="#59">六、ElasticSerach 搜索</a>  
+&emsp;&emsp;&emsp;<a href="#60">6.1 批量导入数据</a>  
+&emsp;&emsp;&emsp;<a href="#61">6.2 trem多种查询</a>  
+&emsp;&emsp;&emsp;&emsp;<a href="#62"> 6.2.1 term query 精准匹配查询 GET/POST请求</a>  
+&emsp;&emsp;&emsp;&emsp;<a href="#63"> 6.2.2 exsit query 在特定的字段中查找非空值的文档 GET/POST请求</a>  
+&emsp;&emsp;&emsp;&emsp;<a href="#64"> 6.2.3 prefix query 查找包含带有指定前缀term的文档 GET/POST请求</a>  
+&emsp;&emsp;&emsp;&emsp;<a href="#65"> 6.2.4 wildcard query 支持通配符查询 GET/POST请求</a>  
+&emsp;&emsp;&emsp;&emsp;<a href="#66"> 6.2.5 regexp query 正则表达式查询 GET/POST请求</a>  
+&emsp;&emsp;&emsp;&emsp;<a href="#67"> 6.2.6 ids query 通过id批量查询 GET/POST请求</a>  
+&emsp;&emsp;&emsp;<a href="#68"> 6.3 范围查询 </a>  
+&emsp;&emsp;&emsp;&emsp;<a href="#69">6.3.1 第一种范围查询 GET/POST请求</a>  
+&emsp;&emsp;&emsp;&emsp;<a href="#70">6.3.2 第二种范围查询 GET/POST请求</a>  
+&emsp;&emsp;&emsp;<a href="#71">6.4 布尔查询</a>  
+&emsp;&emsp;&emsp;&emsp;<a href="#72">6.4.1 must查询 GET/POST请求</a>  
+&emsp;&emsp;&emsp;&emsp;<a href="#73">6.4.2 filter查询 GET/POST请求</a>  
+&emsp;&emsp;&emsp;&emsp;<a href="#74">6.4.3 must_not查询 GET/POST请求</a>  
+&emsp;&emsp;&emsp;&emsp;<a href="#75">6.4.4 should 第一种 查询 GET/POST请求</a>  
+&emsp;&emsp;&emsp;&emsp;<a href="#76">6.4.5 should 第二种 查询 GET/POST请求</a>  
+&emsp;&emsp;&emsp;<a href="#77">6.5 排序查询</a>  
+&emsp;&emsp;&emsp;&emsp;<a href="#78">6.5.1 第一种排序查询 GET/POST请求</a>  
+&emsp;&emsp;&emsp;&emsp;<a href="#79">6.5.2 第一种排序查询 GET/POST请求</a>  
+&emsp;&emsp;&emsp;<a href="#80">6.6 聚合查询指标聚合</a>  
+&emsp;&emsp;&emsp;&emsp;<a href="#81">6.6.1 max min sum avg 指标聚合查询 GET/POST</a>  
+&emsp;&emsp;&emsp;&emsp;<a href="#82">6.6.2 value_count 指标聚合查询 GET/POST</a>  
+&emsp;&emsp;&emsp;&emsp;<a href="#83">6.6.3 _count 指标聚合查询（严格来说不属于聚合） GET/POST</a>  
+&emsp;&emsp;&emsp;&emsp;<a href="#84">6.6.4 cardinality 指标聚合查询 GET/POST</a>  
+&emsp;&emsp;&emsp;&emsp;<a href="#85">6.6.5 status 种指标聚合查询 GET/POST</a>  
+&emsp;&emsp;&emsp;&emsp;<a href="#86">6.6.6 extended status 种指标聚合查询 GET/POST</a>  
+&emsp;&emsp;&emsp;&emsp;<a href="#87">6.6.7 percentiles 种指标聚合查询 GET/POST</a>  
+&emsp;&emsp;&emsp;<a href="#88">6.7 聚合查询桶聚合</a>  
+&emsp;&emsp;&emsp;&emsp;<a href="#89">6.7.1 terms aggregation 桶聚合查询 GET/POST</a>  
+&emsp;&emsp;&emsp;&emsp;<a href="#90">6.7.2 order 第一种分组聚合查询 GET/POST</a>  
+&emsp;&emsp;&emsp;&emsp;<a href="#91">6.7.3 order 第二种分组聚合查询 GET/POST</a>  
+&emsp;&emsp;&emsp;&emsp;<a href="#92">6.7.3 include 筛选分组聚合查询 GET/POST</a>  
+&emsp;&emsp;&emsp;&emsp;<a href="#93">6.7.4 include 正则筛选分组聚合查询 GET/POST</a>  
+&emsp;&emsp;&emsp;&emsp;<a href="#94">6.7.4 range aggregation 范围分组聚合查询 GET/POST</a>  
+&emsp;&emsp;&emsp;&emsp;<a href="#95">6.7.5 date rabge aggregation 时间范围分组聚合查询 GET/POST</a>  
+&emsp;&emsp;&emsp;&emsp;<a href="#96">6.7.6 date histogram aggregation 时间范围分组聚合查询 GET/POST</a>  
+&emsp;&emsp;&emsp;<a href="#97">6.8 query_string 查询</a>  
+&emsp;&emsp;&emsp;&emsp;<a href="#98">6.8.1 query_string AND OR 单字段查询 GET/POST请求</a>  
+&emsp;&emsp;&emsp;&emsp;<a href="#99">6.8.2 query_string AND OR 多字段查询 GET/POST请求</a>  
+&emsp;&emsp;<a href="#100">七、ElasticSerach 高级搜索</a>  
+&emsp;&emsp;&emsp;<a href="#101">7.1 索引别名的使用</a>  
+&emsp;&emsp;&emsp;&emsp;<a href="#102">7.1.1 查询别名 GET请求</a>  
+&emsp;&emsp;&emsp;&emsp;<a href="#103">7.1.2 新增别名 POST请求</a>  
+&emsp;&emsp;&emsp;&emsp;<a href="#104">7.1.3 删除别名 POST请求</a>  
+&emsp;&emsp;&emsp;&emsp;<a href="#105">7.1.4 重命名别名 POST请求</a>  
+&emsp;&emsp;&emsp;&emsp;<a href="#106">7.1.5 通过别名获取索引 GET请求</a>  
+&emsp;&emsp;&emsp;&emsp;<a href="#107">7.1.6 通过别名写索引 POST请求</a>  
+&emsp;&emsp;&emsp;<a href="#108">7.2 如何重建索引</a>  
+&emsp;&emsp;&emsp;<a href="#109">7.3 refresh操作</a>  
+&emsp;&emsp;&emsp;<a href="#110">7.4 高亮查询</a>  
+&emsp;&emsp;&emsp;<a href="#111">7.5 查询建议</a>  
+&emsp;&emsp;&emsp;&emsp;<a href="#112">7.5.1 term suggester</a>  
+&emsp;&emsp;&emsp;&emsp;<a href="#113">7.5.2 phrase suggester</a>  
+&emsp;&emsp;&emsp;&emsp;<a href="#114">7.5.3 completion suggester</a>  
+&emsp;&emsp;<a href="#115">八、NBA中国官网实战</a>  
+&emsp;&emsp;&emsp;<a href="#116">8.1 项目搭建</a>  
+&emsp;&emsp;&emsp;&emsp;<a href="#117">8.1.1 POM依赖</a>  
+&emsp;&emsp;&emsp;&emsp;<a href="#118">8.1.2 YML依赖</a>  
+&emsp;&emsp;&emsp;&emsp;<a href="#119">8.1.3 ElasticSearch配置文件</a>  
+&emsp;&emsp;&emsp;&emsp;<a href="#120">8.1.4 ElasticSearch CRUD入门操作</a>  
+&emsp;&emsp;&emsp;<a href="#121">8.2 接口开发</a>  
+&emsp;&emsp;&emsp;&emsp;<a href="#122">8.2.1 将数据库数据导入到elastic search</a>  
+&emsp;&emsp;&emsp;&emsp;<a href="#123">8.2.2 通过姓名查找球员</a>  
+&emsp;&emsp;&emsp;&emsp;<a href="#124">8.2.3 通过国家或者球队查询球员</a>  
+&emsp;&emsp;&emsp;&emsp;<a href="#125">8.2.4 通过姓名字母查找球员</a>  
+&emsp;&emsp;<a href="#126">九、 走入高可用分布式集群</a>  
+&emsp;&emsp;<a href="#127">十、 深入挖掘ElasticSearch原理</a>  
+&emsp;&emsp;&emsp;<a href="#128"> </a>  
+## <a name="0">ElasticSerach 7 教程</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
 
 - 作者：Crazy.X
 - QQ：200538725
@@ -11,35 +139,36 @@
 - 若小伙伴们喜欢教程的麻烦给点个star 非常感谢，有什么需要的教程可以联系我，有时间我会一一送上
 - 作者有Java技术群，想加入Java群的可以加微信，备注消息Java拉入群聊
 
-### 一、 ElasticSerach 认识
 
-#### 1.1 索引 index
+### <a name="1">一、 ElasticSerach 认识</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
+
+#### <a name="2">1.1 索引 index</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
 - 一个索引可以理解成一个关系数据库的库
 
-#### 1.2 类型 type
+#### <a name="3">1.2 类型 type</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
 - 一种type就像一类表，比如user表，order表
 
-#### 1.3 映射 mapping
+#### <a name="4">1.3 映射 mapping</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
 -  mapping定义了每个字段的类型等信息。相当于关系型数据库中的表结
 
-#### 1.4 文档 document
+#### <a name="5">1.4 文档 document</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
 - 一个document相当于关系型数据库中的一⾏行行记录
 
-#### 1.5 字段 field
+#### <a name="6">1.5 字段 field</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
 - 相当于关系型数据库表的字段
 
-#### 1.6 集群 cluster
+#### <a name="7">1.6 集群 cluster</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
 -集群由一个或多个节点组成，一个集群有一个默认名称"elasticsearch"
 
-#### 1.7 节点 node
+#### <a name="8">1.7 节点 node</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
 - 集群的节点，一台机器 或者一个进程
 
-#### 1.8 分片和副本 node
+#### <a name="9">1.8 分片和副本 node</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
 - 副本是分片的副本。分⽚有主分片(primary Shard)和副本分片(replica Shard)之分。Index数据在物理理上被分布在多个主分片中，每个主分片只存放部分数据。每个主分⽚可以有多个副本，叫副本分片，是主分片的复制。
 
-#### 1.9 核心数据类型
+#### <a name="10">1.9 核心数据类型</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
 
-##### 1.9.1 字符串: 
+##### <a name="11">1.9.1 字符串: </a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
 
 - text
 1. 用于全文索引，该类型的字段将通过分词器 进⾏分词
@@ -47,35 +176,35 @@
 - keyword
 1. 不分词，只能搜索该字段的完整的值
 
-##### 1.9.2 数值型
+##### <a name="12">1.9.2 数值型</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
 
 1. long, integer, short, byte, double, float, half_float, scaled_float
 
-##### 1.9.3 数值型 boolean
+##### <a name="13">1.9.3 数值型 boolean</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
 
 - boolean
 
-##### 1.9.3 二进制
+##### <a name="14">1.9.3 二进制</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
 
 - binary
 1. 该类型的字段把值当做经过 base64 编码的字符串，默认不存储，且不可搜索
 
-##### 1.9.4 范围类型
+##### <a name="15">1.9.4 范围类型</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
 
 1. 范围类型表示值是一个范围，而不是⼀个具体的值
 2. integer_range, float_range, long_range, double_range, date_range
 3. 譬如 age 的类型是 integer_range，那么值可以是 {"gte" : 20, "lte" : 40}；搜索 "term" : {"age": 21} 可以搜索该值
 
-##### 1.9.5 日期
+##### <a name="16">1.9.5 日期</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
 
 - date
 
 1. 由于Json没有date类型，所以es通过识别字符串是否符合format定义的格式来判断是否为date类型
 2. format默认为：strict_date_optional_time||epoch_millis
 3. "2022-01-01" "2022/01/01 12:10:30" 这种字符串格式
-### 二、索引基本操作
+### <a name="17">二、索引基本操作</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
 
-#### 2.1 创建索引 PUT请求
+#### <a name="18">2.1 创建索引 PUT请求</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
 
 - 请求
 ```java
@@ -91,7 +220,7 @@ localhost:9200/nba
 }
 ```
 
-#### 2.2 查看索引 GET请求
+#### <a name="19">2.2 查看索引 GET请求</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
 
 - 请求
 ```java
@@ -120,7 +249,7 @@ localhost:9200/nba
 }
 ```
 
-#### 2.4 删除索引 DELETE请求
+#### <a name="20">2.4 删除索引 DELETE请求</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
 
 - 请求
 ```java
@@ -134,7 +263,7 @@ localhost:9200/nba
 }
 ```
 
-#### 2.5 批量获取索引 GET请求
+#### <a name="21">2.5 批量获取索引 GET请求</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
 
 - 请求
 ```java
@@ -179,7 +308,7 @@ localhost:9200/cba,nba
 }
 ```
 
-#### 2.6 获取全部索引 GET请求
+#### <a name="22">2.6 获取全部索引 GET请求</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
 
 - 请求
 ```java
@@ -223,7 +352,7 @@ localhost:9200/_all
         }
     }
 ```
-#### 2.7 使用_cat获取全部索引 GET请求
+#### <a name="23">2.7 使用_cat获取全部索引 GET请求</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
 
 - 请求
 ```java
@@ -240,7 +369,7 @@ green  open   .kibana_1            579wwXgCQJKJU1Ge7cJVXw   1   0          4    
 
 ```
 
-#### 2.8 判断索引是否存在 HEAD请求
+#### <a name="24">2.8 判断索引是否存在 HEAD请求</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
 
 - 请求
 ```java
@@ -252,7 +381,7 @@ localhost:9200/nba
 状态码"200"则为存在，不存在则为"404"
 ```
 
-#### 2.9 关闭索引 不删除 POST请求
+#### <a name="25">2.9 关闭索引 不删除 POST请求</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
 
 - 请求
 ```java
@@ -267,7 +396,7 @@ localhost:9200/nba/_close
 }
 ```
 
-#### 2.10 打开索引 POST请求
+#### <a name="26">2.10 打开索引 POST请求</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
 
 - 请求
 ```java
@@ -282,12 +411,12 @@ localhost:9200/nba/_open
 }
 ```
 
-### 三、映射的介绍与使用
+### <a name="27">三、映射的介绍与使用</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
 
 - type: text 可分词
 - type: keyword 不可分词
 
-#### 3.1 创建Mapping PUT请求
+#### <a name="28">3.1 创建Mapping PUT请求</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
 
 - 请求
 ```java
@@ -324,7 +453,7 @@ localhost:9200/nba/_mapping
 }
 ```
 
-#### 3.2 查看Mapping信息 GET请求
+#### <a name="29">3.2 查看Mapping信息 GET请求</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
 
 - 请求
 ```java
@@ -358,7 +487,7 @@ localhost:9200/nba/_mapping
 }
 ```
 
-#### 3.3 批量获取Mapping信息 GET请求
+#### <a name="30">3.3 批量获取Mapping信息 GET请求</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
 
 - 请求
 ```java
@@ -395,7 +524,7 @@ localhost:9200/nba,cba/_mapping
 }
 ```
 
-#### 3.4 获取所有Mapping信息第一种方式 GET请求
+#### <a name="31">3.4 获取所有Mapping信息第一种方式 GET请求</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
 
 - 请求
 ```java
@@ -432,7 +561,7 @@ localhost:9200/_mapping
 }
 ```
 
-#### 3.5 获取所有Mapping信息第二种方式 GET请求
+#### <a name="32">3.5 获取所有Mapping信息第二种方式 GET请求</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
 
 - 请求
 ```java
@@ -469,7 +598,7 @@ localhost:9200/_all/_mapping
 }
 ```
 
-#### 3.6 增加Mapping字段 POST请求
+#### <a name="33">3.6 增加Mapping字段 POST请求</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
 
 - Mapping 只可增加字段不可修改字段
 
@@ -511,9 +640,9 @@ localhost:9200/nba/_mapping
 }
 ```
 
-### 四、文档的增删改查
+### <a name="34">四、文档的增删改查</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
 
-#### 4.1 新增文档 指定ID PUT/POST请求
+#### <a name="35">4.1 新增文档 指定ID PUT/POST请求</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
 
 - 请求
 ```java
@@ -549,7 +678,7 @@ localhost:9200/nba/_doc/1
 }
 ```
 
-#### 4.2 新增文档 自动生成ID POST请求
+#### <a name="36">4.2 新增文档 自动生成ID POST请求</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
 
 - 注意: 不指定IP只能使用POST请求
 - 注意: 自动生成ID开关要打开,关闭状态无法自动创建ID
@@ -588,7 +717,7 @@ localhost:9200/nba/_doc
 }
 ```
 
-#### 4.3 自动创建索引 POST请求
+#### <a name="37">4.3 自动创建索引 POST请求</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
 
 - 查看auto_create_index开关状态，请求http://localhost:9200/_cluster/settings
 
@@ -628,7 +757,7 @@ localhost:9200/wnba/_doc/1
 }
 ```
 
-#### 4.4 查看自动创建的索引 GET请求
+#### <a name="38">4.4 查看自动创建的索引 GET请求</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
 
 - 请求
 ```java
@@ -705,7 +834,7 @@ localhost:9200/wnba
 }
 ```
 
-#### 4.5 指定操作类型
+#### <a name="39">4.5 指定操作类型</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
 
 - 新增或修改的时候可能会把原有文档修改掉，这里可以指定类型
 - 比如文档存在，我要新增一条文档，但是没有指定类型可能修改掉原有的文档
@@ -750,7 +879,7 @@ localhost:9200/nba/_doc/1?op_type=create
 }
 ```
 
-#### 4.6 查看指定ID文档 GET请求
+#### <a name="40">4.6 查看指定ID文档 GET请求</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
 
 - 请求
 ```java
@@ -776,7 +905,7 @@ localhost:9200/nba/_doc/1
 	}
 }
 ```
-#### 4.7 查看多条文档 第一种方式 GET/POST请求
+#### <a name="41">4.7 查看多条文档 第一种方式 GET/POST请求</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
 
 - 请求
 ```java
@@ -831,7 +960,7 @@ localhost:9200/_mget
 	]
 }
 ```
-#### 4.8 查看多条文档 第二种方式 GET/POST请求
+#### <a name="42">4.8 查看多条文档 第二种方式 GET/POST请求</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
 
 - 请求
 ```java
@@ -884,7 +1013,7 @@ localhost:9200/nba/_mget // 先指定索引
 }
 ```
 
-#### 4.9 查看多条文档 第三种方式 GET/POST请求
+#### <a name="43">4.9 查看多条文档 第三种方式 GET/POST请求</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
 
 - 请求
 ```java
@@ -935,7 +1064,7 @@ localhost:9200/nba/_doc/_mget    //指定索引、类型
 }
 ```
 
-#### 4.10 查看多条文档 第四种方式 GET/POST请求
+#### <a name="44">4.10 查看多条文档 第四种方式 GET/POST请求</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
 
 - 请求
 ```java
@@ -979,7 +1108,7 @@ localhost:9200/nba/_doc/_mget
 }
 ```
 
-#### 4.11 修改文档 POST请求
+#### <a name="45">4.11 修改文档 POST请求</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
 
 - 根据提供的文档片段更新数据
 
@@ -1018,7 +1147,7 @@ localhost:9200/nba/_update/1
     "_primary_term": 1
 }
 ```
-#### 4.12 向_source增加字段 POST请求
+#### <a name="46">4.12 向_source增加字段 POST请求</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
 
 - 请求
 ```java
@@ -1051,7 +1180,7 @@ localhost:9200/nba/_update/1
     "_primary_term": 1
 }
 ```
-#### 4.13 向_source删除字段 POST请求
+#### <a name="47">4.13 向_source删除字段 POST请求</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
 
 - 请求
 ```java
@@ -1083,7 +1212,7 @@ localhost:9200/nba/_update/1
     "_primary_term": 1
 }
 ```
-#### 4.14 更新指定文档的字段 POST请求
+#### <a name="48">4.14 更新指定文档的字段 POST请求</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
 
 - 请求
 ```java
@@ -1152,7 +1281,7 @@ localhost:9200/nba/_doc/1
 }
 ```
 
-#### 4.15 upsert介绍 
+#### <a name="49">4.15 upsert介绍 </a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
 - upsert 当指定的⽂文档不不存在时，upsert参数包含的内容将会被插⼊入到索引中，作为⼀一个新⽂文档；如果指定的⽂文档存在，ElasticSearch引擎将会执⾏行行指定的更更新逻辑
 
 - 请求
@@ -1216,7 +1345,7 @@ localhost:9200/nba/_doc/3
 }
 ```
 
-#### 4.16 删除文档 DELETE请求
+#### <a name="50">4.16 删除文档 DELETE请求</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
 
 - 请求
 ```java
@@ -1241,14 +1370,14 @@ localhost:9200/nba/_doc/3
 }
 ```
 
-### 五、文档的搜索
+### <a name="51">五、文档的搜索</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
 - term(词条)查询和full text(全⽂文)查询
 
 - 词条查询：词条查询不会分析查询条件，只有当词条和查询字符串完全匹配时，才匹配搜索
 
 - 全⽂查询：ElasticSearch引擎会先分析查询字符串，将其拆分成多个分词，只要已分析的字段中包含词条的任意⼀个，或全部包含，就匹配查询条件，返回该⽂档；如果不包含任意一个分词，表示没有任何文档匹配查询条件
 
-#### 5.1 单条trem查询 GET/POST请求
+#### <a name="52">5.1 单条trem查询 GET/POST请求</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
 
 - term 关键字查询，精确查询
 
@@ -1307,7 +1436,7 @@ localhost:9200/nba/_search
 }
 ```
 
-#### 5.2 多条trem查询 GET/POST请求
+#### <a name="53">5.2 多条trem查询 GET/POST请求</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
 
 - 请求
 ```java
@@ -1374,7 +1503,7 @@ localhost:9200/nba/_search
 }
 ```
 
-####  5.2 match_all查询 GET/POST请求
+#### <a name="54"> 5.2 match_all查询 GET/POST请求</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
 
 - 全文查询
 
@@ -1455,7 +1584,7 @@ localhost:9200/nba/_search
 	}
 }
 ```
-####  5.3 match查询 GET/POST请求
+#### <a name="55"> 5.3 match查询 GET/POST请求</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
 
 - 请求
 ```java
@@ -1511,7 +1640,7 @@ localhost:9200/nba/_search
 }
 ```
 
-####  5.4 multi_match 多个查询 GET/POST请求
+#### <a name="56"> 5.4 multi_match 多个查询 GET/POST请求</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
 
 - 请求
 ```java
@@ -1567,7 +1696,7 @@ localhost:9200/nba/_search
 }
 ```
 
-####  5.4 match_phrase 多个查询 GET/POST请求
+#### <a name="57"> 5.4 match_phrase 多个查询 GET/POST请求</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
 
 - 准确查询 类似词条查询
 
@@ -1623,7 +1752,7 @@ localhost:9200/nba/_search
 }
 ```
 
-####  5.5 match_phrase_profix 多个查询 GET/POST请求
+#### <a name="58"> 5.5 match_phrase_profix 多个查询 GET/POST请求</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
 
 - 可以增加前缀
 
@@ -1680,9 +1809,9 @@ localhost:9200/nba/_search
 }
 ```
 
-### 六、ElasticSerach 搜索
+### <a name="59">六、ElasticSerach 搜索</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
 
-#### 6.1 批量导入数据
+#### <a name="60">6.1 批量导入数据</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
 
 - Bulkl
 1. ES提供了Bulk的API 来进行批量操作
@@ -1714,7 +1843,7 @@ curl -X POST "localhost:9200/_bulk" -H 'Content-Type: application/json' --data-b
 }
 ```
 
-#### 6.2 trem多种查询
+#### <a name="61">6.2 trem多种查询</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
 
 - 单词级别查询
 
@@ -1821,7 +1950,7 @@ curl -X POST "localhost:9200/_bulk" -H 'Content-Type: application/json' --data-b
  }
  ```
 
-#####  6.2.1 term query 精准匹配查询 GET/POST请求
+##### <a name="62"> 6.2.1 term query 精准匹配查询 GET/POST请求</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
 
 - 请求
 ```java
@@ -1958,7 +2087,7 @@ localhost:9200/nba/_search
 }
 ```
 
-#####  6.2.2 exsit query 在特定的字段中查找非空值的文档 GET/POST请求
+##### <a name="63"> 6.2.2 exsit query 在特定的字段中查找非空值的文档 GET/POST请求</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
 
 - 请求
 ```java
@@ -2095,7 +2224,7 @@ localhost:9200/nba/_search
 }
 ```
 
-#####  6.2.3 prefix query 查找包含带有指定前缀term的文档 GET/POST请求
+##### <a name="64"> 6.2.3 prefix query 查找包含带有指定前缀term的文档 GET/POST请求</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
 
 - 请求
 ```java
@@ -2233,7 +2362,7 @@ localhost:9200/nba/_search
 }
 ```
 
-#####  6.2.4 wildcard query 支持通配符查询 GET/POST请求
+##### <a name="65"> 6.2.4 wildcard query 支持通配符查询 GET/POST请求</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
 
 -  *表示任意字符，?表示任意单个字符,类似SQL模糊查询
 
@@ -2372,7 +2501,7 @@ localhost:9200/nba/_search
 }
 ```
 
-#####  6.2.5 regexp query 正则表达式查询 GET/POST请求
+##### <a name="66"> 6.2.5 regexp query 正则表达式查询 GET/POST请求</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
 
 - 请求
 ```java
@@ -2509,7 +2638,7 @@ localhost:9200/nba/_search
 }
 ```
 
-#####  6.2.6 ids query 通过id批量查询 GET/POST请求
+##### <a name="67"> 6.2.6 ids query 通过id批量查询 GET/POST请求</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
 
 - 请求
 ```java
@@ -2645,9 +2774,9 @@ localhost:9200/nba/_search
 }
 ```
 
-####  6.3 范围查询 
+#### <a name="68"> 6.3 范围查询 </a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
 
-##### 6.3.1 第一种范围查询 GET/POST请求
+##### <a name="69">6.3.1 第一种范围查询 GET/POST请求</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
 
 - 请求
 ```java
@@ -2788,7 +2917,7 @@ localhost:9200/nba/_search
 
 ```
 
-##### 6.3.2 第二种范围查询 GET/POST请求
+##### <a name="70">6.3.2 第二种范围查询 GET/POST请求</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
 
 - 请求
 ```java
@@ -2930,7 +3059,7 @@ localhost:9200/nba/_search
 
 ```
 
-#### 6.4 布尔查询
+#### <a name="71">6.4 布尔查询</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
 
 |   type   |  description    |
 | ---- | ---- |
@@ -2940,7 +3069,7 @@ localhost:9200/nba/_search
 |   should   |   应该出现在文档中   |
 
 
-##### 6.4.1 must查询 GET/POST请求
+##### <a name="72">6.4.1 must查询 GET/POST请求</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
 
 - 请求
 ```java
@@ -3084,7 +3213,7 @@ localhost:9200/nba/_search
 
 ```
 
-##### 6.4.2 filter查询 GET/POST请求
+##### <a name="73">6.4.2 filter查询 GET/POST请求</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
 
 - 请求
 ```java
@@ -3228,7 +3357,7 @@ localhost:9200/nba/_search
 
 ```
 
-##### 6.4.3 must_not查询 GET/POST请求
+##### <a name="74">6.4.3 must_not查询 GET/POST请求</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
 
 - 请求
 ```java
@@ -3381,7 +3510,7 @@ localhost:9200/nba/_search
 
 ```
 
-##### 6.4.4 should 第一种 查询 GET/POST请求
+##### <a name="75">6.4.4 should 第一种 查询 GET/POST请求</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
 
 - 请求
 ```java
@@ -3544,7 +3673,7 @@ localhost:9200/nba/_search
 }
 ```
 
-##### 6.4.5 should 第二种 查询 GET/POST请求
+##### <a name="76">6.4.5 should 第二种 查询 GET/POST请求</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
 
 - 请求
 ```java
@@ -3646,9 +3775,9 @@ localhost:9200/nba/_search
 }
 ```
 
-#### 6.5 排序查询
+#### <a name="77">6.5 排序查询</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
 
-##### 6.5.1 第一种排序查询 GET/POST请求
+##### <a name="78">6.5.1 第一种排序查询 GET/POST请求</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
 
 - 请求
 ```java
@@ -3802,7 +3931,7 @@ localhost:9200/nba/_search
 
 ```
 
-##### 6.5.2 第一种排序查询 GET/POST请求
+##### <a name="79">6.5.2 第一种排序查询 GET/POST请求</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
 
 - 请求
 ```java
@@ -3963,7 +4092,7 @@ localhost:9200/nba/_search
 }
 ```
 
-#### 6.6 聚合查询指标聚合
+#### <a name="80">6.6 聚合查询指标聚合</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
 
 - ES聚合分析是什么
 
@@ -3973,7 +4102,7 @@ localhost:9200/nba/_search
 
 3. 而关系型数据库中除了有聚合函数外，还可以对查询出的数据行分组group by，再在组上进行指标聚合。在ES中称为**桶聚合**
 
-##### 6.6.1 max min sum avg 指标聚合查询 GET/POST
+##### <a name="81">6.6.1 max min sum avg 指标聚合查询 GET/POST</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
 
 - max min sum avg 指标聚合
 
@@ -4029,7 +4158,7 @@ localhost:9200/nba/_search
 }
 ```
 
-##### 6.6.2 value_count 指标聚合查询 GET/POST
+##### <a name="82">6.6.2 value_count 指标聚合查询 GET/POST</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
 
 - 统计非空字段的文档数
 
@@ -4085,7 +4214,7 @@ localhost:9200/nba/_search
 }
 ```
 
-##### 6.6.3 _count 指标聚合查询（严格来说不属于聚合） GET/POST
+##### <a name="83">6.6.3 _count 指标聚合查询（严格来说不属于聚合） GET/POST</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
 
 - 查询火箭队有多少文档，也就是有多少球员
 
@@ -4118,7 +4247,7 @@ localhost:9200/nba/_count
 }
 ```
 
-##### 6.6.4 cardinality 指标聚合查询 GET/POST
+##### <a name="84">6.6.4 cardinality 指标聚合查询 GET/POST</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
 
 - Cardinality 值去重计算
 
@@ -4175,7 +4304,7 @@ localhost:9200/nba/_search
 
 ```
 
-##### 6.6.5 status 种指标聚合查询 GET/POST
+##### <a name="85">6.6.5 status 种指标聚合查询 GET/POST</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
 
 - stats 统计count max min avg sum 5个值
 
@@ -4236,7 +4365,7 @@ localhost:9200/nba/_search
 
 ```
 
-##### 6.6.6 extended status 种指标聚合查询 GET/POST
+##### <a name="86">6.6.6 extended status 种指标聚合查询 GET/POST</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
 
 - Extended stats ⽐比stats多4个统计结果： 平⽅方和、⽅方差、标准差、平均值加减两个标准差的区间
 
@@ -4304,7 +4433,7 @@ localhost:9200/nba/_search
 
 ```
 
-##### 6.6.7 percentiles 种指标聚合查询 GET/POST
+##### <a name="87">6.6.7 percentiles 种指标聚合查询 GET/POST</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
 
 - Percentiles 占比百分位对应的值统计，默认返回[ 1, 5, 25, 50, 75, 95, 99 ]分位上的值
 
@@ -4375,9 +4504,9 @@ localhost:9200/nba/_search
 
 ```
 
-#### 6.7 聚合查询桶聚合
+#### <a name="88">6.7 聚合查询桶聚合</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
 
-##### 6.7.1 terms aggregation 桶聚合查询 GET/POST
+##### <a name="89">6.7.1 terms aggregation 桶聚合查询 GET/POST</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
 
 - 请求
 ```java
@@ -4448,7 +4577,7 @@ localhost:9200/nba/_search
 
 ```
 
-##### 6.7.2 order 第一种分组聚合查询 GET/POST
+##### <a name="90">6.7.2 order 第一种分组聚合查询 GET/POST</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
 
 - 请求体
 ```json
@@ -4518,7 +4647,7 @@ localhost:9200/nba/_search
 
 ```
 
-##### 6.7.3 order 第二种分组聚合查询 GET/POST
+##### <a name="91">6.7.3 order 第二种分组聚合查询 GET/POST</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
 
 - 请求
 ```java
@@ -4604,7 +4733,7 @@ localhost:9200/nba/_search
 ```
 
 
-##### 6.7.3 include 筛选分组聚合查询 GET/POST
+##### <a name="92">6.7.3 include 筛选分组聚合查询 GET/POST</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
 
 - 请求
 ```java
@@ -4679,7 +4808,7 @@ localhost:9200/nba/_search
 
 ```
 
-##### 6.7.4 include 正则筛选分组聚合查询 GET/POST
+##### <a name="93">6.7.4 include 正则筛选分组聚合查询 GET/POST</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
 
 - 请求
 ```java
@@ -4767,7 +4896,7 @@ localhost:9200/nba/_search
 
 ```
 
-##### 6.7.4 range aggregation 范围分组聚合查询 GET/POST
+##### <a name="94">6.7.4 range aggregation 范围分组聚合查询 GET/POST</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
 
 - 请求
 ```java
@@ -4849,7 +4978,7 @@ localhost:9200/nba/_search
 
 ```
 
-##### 6.7.5 date rabge aggregation 时间范围分组聚合查询 GET/POST
+##### <a name="95">6.7.5 date rabge aggregation 时间范围分组聚合查询 GET/POST</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
 
 - 请求
 ```java
@@ -4946,7 +5075,7 @@ localhost:9200/nba/_search
 
 ```
 
-##### 6.7.6 date histogram aggregation 时间范围分组聚合查询 GET/POST
+##### <a name="96">6.7.6 date histogram aggregation 时间范围分组聚合查询 GET/POST</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
 
 - 按天、月、年等进行聚合统计。可按 year (1y), quarter (1q), month (1M), week (1w), day (1d), hour (1h), minute (1m), second (1s) 间隔聚合
 
@@ -5121,11 +5250,11 @@ localhost:9200/nba/_search
 
 ```
 
-#### 6.8 query_string 查询
+#### <a name="97">6.8 query_string 查询</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
 
 - query_string 查询，如果熟悉lucene的查询语法，我们可以直接⽤用lucene查询语法写⼀一个查询串进行查询，ES中接到请求后，通过查询解析器 ,解析查询串生成对应的查询。
 
-##### 6.8.1 query_string AND OR 单字段查询 GET/POST请求
+##### <a name="98">6.8.1 query_string AND OR 单字段查询 GET/POST请求</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
 
 - 请求
 ```java
@@ -5264,7 +5393,7 @@ localhost:9200/nba/_search
 
 ```
 
-##### 6.8.2 query_string AND OR 多字段查询 GET/POST请求
+##### <a name="99">6.8.2 query_string AND OR 多字段查询 GET/POST请求</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
 
 - 请求
 ```java
@@ -5343,13 +5472,13 @@ localhost:9200/nba/_search
 
 ```
 
-### 七、ElasticSerach 高级搜索
+### <a name="100">七、ElasticSerach 高级搜索</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
 
-#### 7.1 索引别名的使用
+#### <a name="101">7.1 索引别名的使用</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
 
 - 在开发中，随着业务需求的迭代，较老的业务逻辑就要面临更新甚至是重构，而对于es来说，为了了适应新的业务逻辑，可能就要对原有的索引做一些修改，比如对某些字段做调整，甚至是重建索引。而做这些操作的时候，可能会对业务造成影响，甚至是停机调整等问题。由此，es提供了索引别名来解决这些问题。 索引别名就像一个快捷方式或是软连接，可以指向一个或多个索引，也可以给任意一个需要索引名的API来使⽤用。别名的应用为程序提供了极大地灵活性
 
-##### 7.1.1 查询别名 GET请求
+##### <a name="102">7.1.1 查询别名 GET请求</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
 
 - 请求
 ```java
@@ -5375,7 +5504,7 @@ localhost:9200/_aliases  // 查询所有别名
 }
 ```
 
-##### 7.1.2 新增别名 POST请求
+##### <a name="103">7.1.2 新增别名 POST请求</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
 
 - 请求
 ```java
@@ -5405,7 +5534,7 @@ localhost:9200/_aliases
 }
 ```
 
-##### 7.1.3 删除别名 POST请求
+##### <a name="104">7.1.3 删除别名 POST请求</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
 
 - 请求
 ```java
@@ -5433,7 +5562,7 @@ localhost:9200/_aliases
 }
 ```
 
-##### 7.1.4 重命名别名 POST请求
+##### <a name="105">7.1.4 重命名别名 POST请求</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
 
 - 请求
 ```java
@@ -5467,7 +5596,7 @@ localhost:9200/_aliases
 }
 ```
 
-##### 7.1.5 通过别名获取索引 GET请求
+##### <a name="106">7.1.5 通过别名获取索引 GET请求</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
 
 - 请求
 ```java
@@ -5570,7 +5699,7 @@ localhost:9200/nba_v2.0
 }
 ```
 
-##### 7.1.6 通过别名写索引 POST请求
+##### <a name="107">7.1.6 通过别名写索引 POST请求</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
 
 - 当别名指定了一个索引，则可以做写的操作
 
@@ -5628,7 +5757,7 @@ localhost:9200/nba_v2.0/_doc/566
 }
 ```
 
-#### 7.2 如何重建索引
+#### <a name="108">7.2 如何重建索引</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
 
 - Elasticsearch是⼀一个实时的分布式搜索引擎，为用户提供搜索服务，当我们决定存储某种数据时，在创建索引的时候需要将数据结构完整确定下来，于此同时索引的设定和很多固定配置将用不能改变。当需要改变数据结构时，就需要重新建立索引，为此，Elastic团队提供了很多辅助工具帮助开发人员进行重建索引
 
@@ -5846,7 +5975,7 @@ localhost:9200/nba
 }
 ```
 
-#### 7.3 refresh操作
+#### <a name="109">7.3 refresh操作</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
 
 - 理想的搜索
 
@@ -5918,7 +6047,7 @@ localhost:9200/star/_settings
 }
 ```
 
-#### 7.4 高亮查询
+#### <a name="110">7.4 高亮查询</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
 
 - 如果返回的结果集中很多符合条件的结果，那怎么能一眼就能看到我们想要的那个结果呢？比如，我们搜索苍井空 ，在结果集中，将所有苍井空 高亮显示？
 
@@ -6065,7 +6194,7 @@ localhost:9200/nba_latest/_search
 
 ```
 
-#### 7.5 查询建议
+#### <a name="111">7.5 查询建议</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
 
 - 查询建议是什么
 
@@ -6087,7 +6216,7 @@ localhost:9200/nba_latest/_search
 |   sort   |   如何对建议词进行排序，可用选项:score:先按评分排序、再按文档频率排、term顺序；frequency:先按文档频率排，再按评分、term顺序排。   |
 |   suggest_mode   |   建议模式，控制提供建议词的方式：missing:仅在搜索的词项在索引中不存在时才提供建议词，默认值；popular:仅建议文档频率比搜索词项高的词；always：总是提供匹配的建议词   |
 
-##### 7.5.1 term suggester
+##### <a name="112">7.5.1 term suggester</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
 
 -  term 词条建议器 ，对给输入的文本进行分词，为每个分词提供词项建议
 
@@ -6177,7 +6306,7 @@ localhost:9200/nba_latest/_search
 
 ```
 
-##### 7.5.2 phrase suggester
+##### <a name="113">7.5.2 phrase suggester</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
 
 -  phrase 短语建议，在term的基础上，会考量多个term之间的关系，比如是否同时出现在索引的原文⾥里，相邻程度，以及词频等
 
@@ -6254,7 +6383,7 @@ localhost:9200/nba_latest/_search
 
 ```
 
-##### 7.5.3 completion suggester
+##### <a name="114">7.5.3 completion suggester</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
 
 - Completion 完成建议
 
@@ -6277,16 +6406,16 @@ localhost:9200/nba_latest/_search
 }
 ```
 
-### 八、NBA中国官网实战
+### <a name="115">八、NBA中国官网实战</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
 
 - 官方网站
 ` https://china.nba.com/playerindex/ `
 
-#### 8.1 项目搭建
+#### <a name="116">8.1 项目搭建</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
 
 - springboot 整合 elasticsearch 和 mysql
 
-##### 8.1.1 POM依赖
+##### <a name="117">8.1.1 POM依赖</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
 
 ```xml
         <!-- elasticsearch-rest-high-level-client -->
@@ -6302,7 +6431,7 @@ localhost:9200/nba_latest/_search
             <version>7.2.1</version>
         </dependency>
 ```
-##### 8.1.2 YML依赖
+##### <a name="118">8.1.2 YML依赖</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
 
 ```yaml
 elasticsearch:
@@ -6310,7 +6439,7 @@ elasticsearch:
   port: 9200
 ```
 
-##### 8.1.3 ElasticSearch配置文件
+##### <a name="119">8.1.3 ElasticSearch配置文件</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
 
 ```java
 package com.frame.elasticsearch.config;
@@ -6346,7 +6475,7 @@ public class ElasticSearchConfig {
 
 ```
 
-##### 8.1.4 ElasticSearch CRUD入门操作
+##### <a name="120">8.1.4 ElasticSearch CRUD入门操作</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
 
 - 对象转Map工具类
 
@@ -6548,7 +6677,7 @@ public class NbaPlayerServiceImplTest {
 }
 ```
 
-#### 8.2 接口开发
+#### <a name="121">8.2 接口开发</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
 
 - Result结果集Vo
 
@@ -6628,7 +6757,7 @@ public enum ResultEnum {
 ```
 
 
-##### 8.2.1 将数据库数据导入到elastic search
+##### <a name="122">8.2.1 将数据库数据导入到elastic search</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
 
 - controller层
 
@@ -6667,7 +6796,7 @@ public enum ResultEnum {
         return true;
     }
 ```
-##### 8.2.2 通过姓名查找球员
+##### <a name="123">8.2.2 通过姓名查找球员</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
 
 - controller层
 
@@ -6723,7 +6852,7 @@ public enum ResultEnum {
     }
 ```
 
-##### 8.2.3 通过国家或者球队查询球员
+##### <a name="124">8.2.3 通过国家或者球队查询球员</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
 
 - controller层
 
@@ -6784,7 +6913,7 @@ public enum ResultEnum {
     }
 ```
 
-##### 8.2.4 通过姓名字母查找球员
+##### <a name="125">8.2.4 通过姓名字母查找球员</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
 
 - controller层
 
@@ -6840,13 +6969,13 @@ public enum ResultEnum {
     }
 ```
 
-### 九、 走入高可用分布式集群
+### <a name="126">九、 走入高可用分布式集群</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
 
 
-### 十、 深入挖掘ElasticSearch原理
+### <a name="127">十、 深入挖掘ElasticSearch原理</a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
 
 ------------------
-####  
+#### <a name="128"> </a><a style="float:right;text-decoration:none;" href="#index">[Top]</a>
 
 - 请求
 ```java
